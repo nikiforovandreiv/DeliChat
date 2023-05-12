@@ -149,7 +149,9 @@ function changeSize() {
         containerWelcomeRight.style.justifyContent="flex-start";
         containerWelcomeRight.style.alignItems="flex-start";
 
+        welcomeTextPart.style.justifyContent = "space-around";
         welcomeTextPart.style.alignItems = "flex-start";
+        welcomeTextPart.style.marginBottom = "2%";
     }
 }
 
