@@ -18,6 +18,11 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/front/html/main.html');
 });
 
+// Serve the account file as the account page
+app.get('/account', function(req, res) {
+    res.sendFile(__dirname + '/public/front/html/account.html');
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

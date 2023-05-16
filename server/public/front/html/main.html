@@ -14,13 +14,11 @@
         <title>DeliChat: Home</title>
     </head>
     <body id="body">
-        <!-- top padding -->
-        <div class="container_top_empty_space"></div>
         <!-- main page -->
         <div class="container_main" id="container_main">
             <!-- navigation column -->
             <div class="container_navigation" id="container_navigation_column">
-                <div class="container-intermediate_navigation" id="container-intermediate_navigation_column">
+                <div class="intermediate_navigation" id="intermediate_navigation_column">
                     <div class="navigation">
                         <button class="navigation_button" id="navigation_home_button_row">
                             Home
@@ -28,13 +26,13 @@
                         <span class="navigation_space_column">
                             |
                         </span>
-                        <button class="navigation_button" id="navigation_home_about_row">
+                        <button class="navigation_button" id="navigation_about_button_row">
                             About
                         </button>
                         <span class="navigation_space_column">
                             |
                         </span>
-                        <button class="navigation_button" id="navigation_home_account_row">
+                        <button class="navigation_button" id="navigation_account_button_row">
                             Account
                         </button>
                     </div>
@@ -46,8 +44,8 @@
                     <!-- logo -->
                     <div class="container_welcome_logo" id="container_welcome_logo">
                         <div class="intermediate_welcome_logo" id="intermediate_welcome_logo">
-                            <div class="welcome_logo">
-                                <img src="/front/img/logo_set_home.png" alt="DeliChat" id="welcome_logo">
+                            <div class="welcome_logo" id="welcome_logo">
+                                <img src="/front/img/logo_set_home.png" alt="DeliChat" id="welcome_logo_img">
                             </div>
                         </div>
                     </div>
@@ -101,7 +99,7 @@
                 <div class="welcome_right" id="welcome_right">
                     <!-- navigation row -->
                     <div class="container_navigation" id="container_navigation_row">
-                        <div class="container-intermediate_navigation" id="container-intermediate_navigation_row">
+                        <div class="intermediate_navigation" id="intermediate_navigation_row">
                             <div class="navigation">
                                 <button class="navigation_button" id="navigation_home_button_column">
                                     Home
@@ -109,13 +107,13 @@
                                 <span class="navigation_space_row">
                                     |
                                 </span>
-                                <button class="navigation_button" id="navigation_home_about_column">
+                                <button class="navigation_button" id="navigation_about_button_column">
                                     About
                                 </button>
                                 <span class="navigation_space_row">
                                     |
                                 </span>
-                                <button class="navigation_button" id="navigation_home_account_column">
+                                <button class="navigation_button" id="navigation_account_button_column">
                                     Account
                                 </button>
                             </div>
@@ -123,14 +121,15 @@
                     </div>
                     <!-- soup image -->
                     <div class="container_welcome_soup" id="container_welcome_soup">
-                        <div class="welcome_soup">
-                            <img src="/front/img/soup_set_home.png" alt="" id="welcome_soup">
+                        <div class="welcome_soup" id="welcome_soup">
+                            <img src="/front/img/soup_set_home.png" alt="" id="welcome_soup_img">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- javascript import -->
-        <script src="/front/javascript/main.js"></script>
+        <script defer src="/front/javascript/main.js"></script>
+        <script defer src="/front/javascript/navigationEventListener.js"></script>
     </body>
 </html>
