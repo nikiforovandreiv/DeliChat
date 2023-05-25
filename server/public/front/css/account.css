@@ -10,7 +10,6 @@ html, body {
 }
 
 body {
-    position: relative;
     background-color: #ffd8a0;
     background-image: url("../img/back_line_signin.png");
     background-repeat: no-repeat;
@@ -22,9 +21,9 @@ body {
 
 div {
     display: flex;
-    border: 1px solid black;
     /*
     used for formatting the divs
+    border: 1px solid black;
      */
 }
 
@@ -33,12 +32,15 @@ button {
     border: transparent;
 }
 
+.top_empty_space {
+    width: 100%;
+    height: calc(1/18 * 100%);
+}
+
 .container_main {
-    position: absolute;
     width: 100%;
     height: 100%;
     flex-direction: row;
-    top: calc(1/18 * 100%);
 }
 
 .container_account_left {
@@ -128,8 +130,8 @@ button {
     width: calc(9.6/16 * 100%);
     height: calc(14/18 * 100%);
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     margin-left: calc(4/32 * 100%);
 }
 
@@ -193,7 +195,7 @@ button {
 
 .navigation_space_column, .navigation_space_row {
     color: #ec8a5e;
-    font-size: 25px;
+    font-size: 26px;
 }
 
 .navigation_space_column {
@@ -210,7 +212,7 @@ button {
     width: 100%;
     height: calc(12/14 * 100%);
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -293,7 +295,7 @@ button {
     width: 100%;
     height: 100%;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
 }
 
@@ -302,8 +304,8 @@ button {
     height: calc(1/2.5 * 100%);
     border-radius: 50px;
     color: #df613d;
-    font-size: 120%;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: normal;
     background-color: transparent;
     border: 2px solid #df613d;
     padding: 0 2ch;
@@ -317,11 +319,19 @@ button {
     outline: 1px solid #df613d;
 }
 
-#password {
+#sign_in_email, #sign_in_password {
+    height: calc(1/2.5 * 100%);
+}
+
+#sign_up_email, #sign_up_password, #sign_up_repeat_password {
+    height: calc(1/4 * 100%);
+}
+
+#sign_in_password, #sign_up_password {
     margin-top: calc(0.5/12 * 100%);
 }
 
-#repeat_password {
+#sign_up_repeat_password {
     margin-top: calc(0.25/12 * 100%);
 }
 
@@ -385,7 +395,7 @@ button {
     height: 40%;
     text-align: center;
     line-height: 100%;
-    font-size: 25px;
+    font-size: 26px;
     background-color: #ec8a5e;
     color: #ffd8a0;
     border-radius: 50px;
@@ -444,5 +454,5 @@ button {
 }
 
 .sign_in_with_google_button, .sign_up_with_google_button {
-    font-size: 25px;
+    font-size: 26px;
 }

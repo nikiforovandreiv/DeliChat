@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Candara">
         <!-- css import -->
         <link rel="stylesheet" type="text/css" href="/front/css/account.css">
+        <!-- javascript import -->
+        <script defer src="/front/javascript/account.js"></script>
+        <script defer src="/front/javascript/navigationEventListener.js"></script>
+        <script defer src="/front/javascript/dynamicTextFontSize.js"></script>
         <!-- page icon import -->
         <link rel="icon" href="/front/img/webpage_icon_chat.png" sizes="16x16" type="image/png">
         <link rel="icon" href="/front/img/webpage_icon_chat.png" sizes="32x32" type="image/png">
@@ -14,24 +18,26 @@
         <title>DeliChat: Account</title>
     </head>
     <body id="body">
+        <!-- top empty space -->
+        <div class="top_empty_space" id="top_empty_space"></div>
         <div class="container_main" id="container_main">
             <!-- navigation column -->
             <div class="container_navigation" id="container_navigation_column">
                 <div class="intermediate_navigation" id="intermediate_navigation_column">
                     <div class="navigation">
-                        <button class="navigation_button" id="navigation_home_button_row">
+                        <button class="navigation_button" id="navigation_home_button_row" data-value="26">
                             Home
                         </button>
-                        <span class="navigation_space_column">
+                        <span class="navigation_space_column" data-value="26">
                                     |
                                 </span>
-                        <button class="navigation_button" id="navigation_about_button_row">
+                        <button class="navigation_button" id="navigation_about_button_row" data-value="26">
                             About
                         </button>
-                        <span class="navigation_space_column">
+                        <span class="navigation_space_column" data-value="26">
                                     |
                                 </span>
-                        <button class="navigation_button" id="navigation_account_button_row">
+                        <button class="navigation_button" id="navigation_account_button_row" data-value="26">
                             Account
                         </button>
                     </div>
@@ -72,19 +78,19 @@
                     <div class="container_navigation" id="container_navigation_row">
                         <div class="intermediate_navigation" id="intermediate_navigation_row">
                             <div class="navigation">
-                                <button class="navigation_button" id="navigation_home_button_column">
+                                <button class="navigation_button" id="navigation_home_button_column" data-value="26">
                                     Home
                                 </button>
-                                <span class="navigation_space_row">
+                                <span class="navigation_space_row" data-value="26">
                                             |
                                         </span>
-                                <button class="navigation_button" id="navigation_about_button_column">
+                                <button class="navigation_button" id="navigation_about_button_column" data-value="26">
                                     About
                                 </button>
-                                <span class="navigation_space_row">
+                                <span class="navigation_space_row" data-value="26">
                                             |
                                         </span>
-                                <button class="navigation_button" id="navigation_account_button_column">
+                                <button class="navigation_button" id="navigation_account_button_column" data-value="26">
                                     Account
                                 </button>
                             </div>
@@ -96,12 +102,12 @@
                         <div class="container_sign_option" id="container_sign_option">
                             <div class="intermediate_sign_option" id="intermediate_sign_option">
                                 <div class="sign_option" id="sign_in_option">
-                                    <button class="sign_option_button" id="sign_in_option_button">
+                                    <button class="sign_option_button" id="sign_in_option_button" data-value="36">
                                         Sign in
                                     </button>
                                 </div>
                                 <div class="sign_option" id="sign_up_option">
-                                    <button class="sign_option_button" id="sign_up_option_button">
+                                    <button class="sign_option_button" id="sign_up_option_button" data-value="36">
                                         Sign up
                                     </button>
                                 </div>
@@ -111,10 +117,14 @@
                         <div class="container_sign_input" id="container_sign_input">
                             <div class="intermediate_sign_input" id="intermediate_sign_input">
                                 <div class="sign_input" id="sign_input">
-                                    <form class="sign_input_form" action="" method="post" id="sign_input_form">
-                                        <input type="email" placeholder="Email address" class="sign_input_input" id="email" name="email">
-                                        <input type="password" placeholder="Password" class="sign_input_input" id="password" name="password">
-                                        <input type="password" placeholder="Repeat password" class="sign_input_input" id="repeat_password" name="repeat_password">
+                                    <form class="sign_input_form" method="POST" id="sign_in_input_form">
+                                        <input type="email" placeholder="Email address" class="sign_input_input" id="sign_in_email" name="sign_in_email" required data-value="20">
+                                        <input type="password" placeholder="Password" class="sign_input_input" id="sign_in_password" name="sign_in_password" required data-value="20">
+                                    </form>
+                                    <form class="sign_input_form" method="POST" id="sign_up_input_form">
+                                        <input type="email" placeholder="Email address" class="sign_input_input" id="sign_up_email" name="sign_up_email" required data-value="20">
+                                        <input type="password" placeholder="Password" class="sign_input_input" id="sign_up_password" name="sign_up_password" required data-value="20">
+                                        <input type="password" placeholder="Repeat password" class="sign_input_input" id="sign_up_repeat_password" name="sign_up_repeat_password" required data-value="20">
                                     </form>
                                 </div>
                             </div>
@@ -123,7 +133,7 @@
                         <div class="container_signin_forget" id="container_signin_forget">
                             <div class="intermediate_signin_forget" id="intermediate_signin_forget">
                                 <div class="signin_forget" id="signin_forget">
-                                    <button class="signin_forget_button" id="signin_forget_button">
+                                    <button class="signin_forget_button" id="signin_forget_button" data-value="16">
                                         Forgot password?
                                     </button>
                                 </div>
@@ -134,7 +144,7 @@
                             <div class="intermediate_sign_button" id="intermediate_sign_button">
                                 <div class="sign_in_display" id="sign_in_display">
                                     <div class="sign_in" id="sign_in">
-                                        <button class="sign_in_button" id="sign_in_button">
+                                        <button class="sign_in_button" id="sign_in_button" data-value="26">
                                             Sign in
                                         </button>
                                     </div>
@@ -143,7 +153,7 @@
                                             <div class="or_border_space_top"></div>
                                             <div class="or_border_space_bottom"></div>
                                         </div>
-                                        <div class="or_border_text">
+                                        <div class="or_border_text" data-value="22">
                                             or
                                         </div>
                                         <div class="or_border_spaces">
@@ -153,14 +163,14 @@
                                     </div>
                                     <div class="sign_in_with_google" id="sign_in_with_google">
                                         <img class="sign_with_google_image" alt="Google" src="/front/img/google.png" id="sign_in_with_google_image">
-                                        <button class="sign_in_with_google_button" id="sign_in_with_google_button">
+                                        <button class="sign_in_with_google_button" id="sign_in_with_google_button" data-value="26">
                                             Sign in with Google
                                         </button>
                                     </div>
                                 </div>
                                 <div class="sign_up_display" id="sign_up_display">
                                     <div class="sign_up" id="sign_up">
-                                        <button class="sign_up_button" id="sign_up_button">
+                                        <button class="sign_up_button" id="sign_up_button" data-value="26">
                                             Sign up
                                         </button>
                                     </div>
@@ -169,7 +179,7 @@
                                             <div class="or_border_space_top"></div>
                                             <div class="or_border_space_bottom"></div>
                                         </div>
-                                        <div class="or_border_text">
+                                        <div class="or_border_text" data-value="22">
                                             or
                                         </div>
                                         <div class="or_border_spaces">
@@ -179,7 +189,7 @@
                                     </div>
                                     <div class="sign_up_with_google" id="sign_up_with_google">
                                         <img class="sign_with_google_image" alt="Google" src="/front/img/google.png" id="sign_up_with_google_image">
-                                        <button class="sign_up_with_google_button" id="sign_up_with_google_button">
+                                        <button class="sign_up_with_google_button" id="sign_up_with_google_button" data-value="26">
                                             Sign up with Google
                                         </button>
                                     </div>
@@ -205,8 +215,5 @@
                 </div>
             </div>
         </div>
-        <!-- javascript import -->
-        <script defer src="/front/javascript/account.js"></script>
-        <script defer src="/front/javascript/navigationEventListener.js"></script>
     </body>
 </html>
