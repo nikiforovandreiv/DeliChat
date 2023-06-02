@@ -5,7 +5,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -21,10 +22,8 @@ body {
 
 div {
     display: flex;
-    /*
-    used for formatting the divs
-    border: 1px solid black;
-     */
+    /* used for formatting the divs
+    border: 1px solid black; */
 }
 
 button {
@@ -33,12 +32,10 @@ button {
 }
 
 .top_empty_space {
-    width: 100%;
     height: calc(1/18 * 100%);
 }
 
 .container_main {
-    width: 100%;
     height: 100%;
     flex-direction: row;
 }
@@ -77,7 +74,6 @@ button {
 }
 
 .welcome_logo {
-    width: 100%;
     height: 100%;
     justify-content: flex-start;
     align-items: center;
@@ -88,7 +84,8 @@ button {
     height: 100%;
 }
 
-#container_account_pan_row, #container_account_pie_row {
+#container_account_pan_row,
+#container_account_pie_row {
     width: 100%;
     height: calc(7/14 * 100%);
     justify-content: flex-start;
@@ -96,6 +93,7 @@ button {
 }
 
 .intermediate_account_logo {
+    width: 100%;
     height: 100%;
 }
 
@@ -106,12 +104,16 @@ button {
     align-items: flex-start;
 }
 
-#account_pan_row, #account_pan_column, #account_pie_row, #account_pie_column {
+#account_pan_row,
+#account_pan_column,
+#account_pie_row,
+#account_pie_column {
     width: 100%;
     height: auto;
 }
 
-#container_account_pan_column, #container_account_pie_column {
+#container_account_pan_column,
+#container_account_pie_column {
     width: 100%;
     height: calc(7/14 * 100%);
     justify-content: center;
@@ -179,7 +181,7 @@ button {
     color: #ec8a5e;
     background-color: transparent;
     border: #ffd8a0;
-    font-size: 26px;
+    font-size: 30px;
     border-bottom: 3px solid transparent;
 }
 
@@ -189,13 +191,15 @@ button {
     border-bottom: 3px solid #df613d;
 }
 
-#navigation_account_button_row, #navigation_account_button_column {
+#navigation_account_button_row,
+#navigation_account_button_column {
     color: #df613d;
 }
 
-.navigation_space_column, .navigation_space_row {
+.navigation_space_column,
+.navigation_space_row {
     color: #ec8a5e;
-    font-size: 26px;
+    font-size: 30px;
 }
 
 .navigation_space_column {
@@ -244,7 +248,7 @@ button {
     color: #ec8a5e;
     background-color: transparent;
     border: #ffd8a0;
-    font-size: 36px;
+    font-size: 40px;
     border-bottom: 3px solid transparent;
 }
 
@@ -304,7 +308,7 @@ button {
     height: calc(1/2.5 * 100%);
     border-radius: 50px;
     color: #df613d;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: normal;
     background-color: transparent;
     border: 2px solid #df613d;
@@ -319,15 +323,19 @@ button {
     outline: 1px solid #df613d;
 }
 
-#sign_in_email, #sign_in_password {
+#sign_in_email,
+#sign_in_password {
     height: calc(1/2.5 * 100%);
 }
 
-#sign_up_email, #sign_up_password, #sign_up_repeat_password {
+#sign_up_email,
+#sign_up_password,
+#sign_up_repeat_password {
     height: calc(1/4 * 100%);
 }
 
-#sign_in_password, #sign_up_password {
+#sign_in_password,
+#sign_up_password {
     margin-top: calc(0.5/12 * 100%);
 }
 
@@ -355,7 +363,7 @@ button {
 .signin_forget_button {
     width: 100%;
     height: 100%;
-    font-size: 16px;
+    font-size: 25px;
     color: #ec8a5e;
 }
 
@@ -375,7 +383,8 @@ button {
     height: 100%;
 }
 
-.sign_in_display, .sign_up_display {
+.sign_in_display,
+.sign_up_display {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -383,25 +392,28 @@ button {
     height: 100%;
 }
 
-.sign_in, .sign_up {
+.sign_in,
+.sign_up {
     width: calc(3.6/9.6 * 100%);
     height: calc(2/5 * 100%);
     justify-content: center;
     align-items: center;
 }
 
-.sign_in_button, .sign_up_button {
+.sign_in_button,
+.sign_up_button {
     width: 100%;
     height: 40%;
     text-align: center;
     line-height: 100%;
-    font-size: 26px;
+    font-size: 30px;
     background-color: #ec8a5e;
     color: #ffd8a0;
     border-radius: 50px;
 }
 
-.sign_in_button:hover, .sign_up_button:hover {
+.sign_in_button:hover,
+.sign_up_button:hover {
     background-color: #df613d;
 }
 
@@ -421,7 +433,8 @@ button {
     align-items: center;
 }
 
-.or_border_space_top, .or_border_space_bottom {
+.or_border_space_top,
+.or_border_space_bottom {
     width: 100%;
     height: 100%;
 }
@@ -436,11 +449,12 @@ button {
     justify-content: center;
     align-items: center;
     color: #df613d;
-    font-size: 22px;
+    font-size: 26px;
 }
 
-.sign_in_with_google, .sign_up_with_google {
-    width: calc(5.5/9.6 * 100%);
+.sign_in_with_google,
+.sign_up_with_google {
+    width: calc(6/9.6 * 100%);
     height: calc(2/5 * 100%);
     justify-content: space-around;
     align-items: center;
@@ -453,6 +467,7 @@ button {
     width: auto;
 }
 
-.sign_in_with_google_button, .sign_up_with_google_button {
-    font-size: 26px;
+.sign_in_with_google_button,
+.sign_up_with_google_button {
+    font-size: 30px;
 }

@@ -4,14 +4,14 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'Fri3nd1998!Fri3nd1998!',
-    database: 'users',
+    database: 'database',
 });
 
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'Fri3nd1998!Fri3nd1998!',
-    database: 'users',
+    database: 'database',
     connectionLimit: 10,
 });
 
@@ -36,18 +36,51 @@ function retrieveUsersTableData() {
     });
 }
 
-/*
-function addRandomUser() {
-    connection.query('INSERT INTO users (email, password) VALUES (\'johndoe@example.com\', \'niggersInPalace\');', (error, results) => {
-        if (error) {
-            console.error('Error adding user:', error);
-        } else {
-            console.log('User added successfully:');
-            console.table(results);
-        }
+function getId(email) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'SELECT user_id FROM users WHERE email = ?',
+            [email],
+            (error, results) => {
+                if (error) {
+                    console.error('Error retrieving user_id:', error);
+                    reject(error);
+                } else {
+                    console.log('User id retrieved successfully:');
+                    console.log(results);
+                    const userId = results[0].user_id.toString(); // Convert userId to text
+                    resolve(userId);
+                }
+            }
+        );
     });
 }
- */
+
+function getNoteId(email, note_content) {
+    return new Promise((resolve, reject) => {
+        getId(email)
+            .then((user_id) => {
+                connection.query(
+                    'SELECT note_id FROM notes WHERE user_id = ? AND note_content = ?',
+                    [user_id, note_content],
+                    (error, results) => {
+                        if (error) {
+                            console.error('Error retrieving note id:', error);
+                            reject(error);
+                        } else {
+                            console.log('Note id retrieved successfully');
+                            const noteId = results[0] ? results[0].note_id.toString() : null;
+                            resolve(noteId);
+                        }
+                    }
+                );
+            })
+            .catch((error) => {
+                console.error('Error retrieving user_id:', error);
+                reject(error);
+            });
+    });
+}
 
 function addUser(email, password) {
     return new Promise((resolve, reject) => {
@@ -67,19 +100,6 @@ function addUser(email, password) {
         );
     });
 }
-
-/*
-function addUser(email, password) {
-    connection.query('INSERT INTO users (email, password) VALUES (email, password);', (error, results) => {
-        if (error) {
-            console.error('Error adding user:', error);
-        } else {
-            console.log('User added successfully:');
-            console.table(results);
-        }
-    });
-}
- */
 
 function userExists(email, password) {
     return new Promise((resolve, reject) => {
@@ -102,10 +122,51 @@ function userExists(email, password) {
     });
 }
 
+function addNote(user_id, note_content) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'INSERT INTO notes (user_id, note_content) VALUES (?, ?);',
+            [user_id, note_content],
+            (error, results) => {
+                if (error) {
+                    console.error('Error adding note:', error);
+                    reject(error);
+                } else {
+                    console.log('Note added successfully:');
+                    console.table(results);
+                    resolve(results);
+                }
+            }
+        );
+    });
+}
+
+function deleteNote(note_id) {
+    return new Promise((resolve, reject) => {
+        connection.query(
+            'DELETE FROM notes WHERE note_id = ?',
+            [note_id],
+            (error, results) => {
+                if (error) {
+                    console.error('Error deleting note:', error);
+                    reject(error);
+                } else {
+                    console.log('Note deleted successfully:');
+                    console.table(results);
+                    resolve(results);
+                }
+            }
+        );
+    });
+}
+
 module.exports = {
     connect,
     retrieveUsersTableData,
-    // addRandomUser,
+    getId,
+    getNoteId,
     addUser,
-    userExists
+    userExists,
+    addNote,
+    deleteNote
 };

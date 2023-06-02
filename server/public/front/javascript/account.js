@@ -52,6 +52,9 @@ const containerAccountPieRow = document.getElementById("container_account_pie_ro
 const containerAccountPanColumn = document.getElementById("container_account_pan_column");
 const containerAccountPieColumn = document.getElementById("container_account_pie_column");
 
+const intermediateAccountPanColumn = document.getElementById("intermediate_account_pan_column");
+const intermediateAccountPieColumn = document.getElementById("intermediate_account_pie_column");
+
 // Get the container sign elements
 const containerSign = document.getElementById("container_sign");
 const containerSignOption = document.getElementById("container_sign_option");
@@ -87,12 +90,15 @@ function setSizeOfLeftAndRight() {
     let accountRightWidth = accountRightHeight * accountRightProportion;
 
     // Set the accountLeft width and height
-    accountLeft.style.width = accountLeftWidth.toString() + "px";
-    accountLeft.style.height = accountLeftHeight.toString() + "px";
+    accountLeft.style.width = `${accountLeftWidth}px`;
+    accountLeft.style.height = `${accountLeftHeight}px`;
+
+    intermediateAccountPanColumn.style.width = `${accountLeftWidth}px`;
+    intermediateAccountPieColumn.style.width = `${accountLeftWidth}px`;
 
     // Set the accountRight width and height
-    accountRight.style.width = accountRightWidth.toString() + "px";
-    accountRight.style.height = accountRightHeight.toString() + "px";
+    accountRight.style.width = `${accountRightWidth}px`;
+    accountRight.style.height = `${accountRightHeight}px`;
 }
 
 function changeSize() {
@@ -101,7 +107,7 @@ function changeSize() {
     windowHeight = window.innerHeight;
 
     // column
-    if (window.innerWidth <= window.innerHeight * 1.4) {
+    if (window.innerWidth <= window.innerHeight * 1.5) {
         is_row = false;
 
         body.style.overflow = "auto"

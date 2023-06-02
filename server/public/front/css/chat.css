@@ -5,35 +5,119 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
 body {
     background-color: #ffd8a0;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 div {
     display: flex;
-    /*
-    used for formatting the divs
+    /* used for formatting the divs */
     border: 0px solid black;
-     */
 }
 
 .container_chat {
-    width: 100%;
+    position: relative;
     height: 100%;
     flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-image: url("../img/chat_background.png");
+    background-repeat: repeat;
+    background-size: 50% auto;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#container_display_open_option {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(3/18 * 100%);
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#display_open_option {
+    width: calc(1.3/32 * 100%);
+    height: calc(0.8/3 * 100%);
+    border-radius: 0 50px 50px 0;
+    border-top: 3px solid #dc5938;
+    border-right: 3px solid #dc5938;
+    border-bottom: 3px solid #dc5938;
+}
+
+#display_option_open_button {
+    display: flex;
+    background: transparent;
+    border-color: transparent;
+    justify-content: center;
+    align-items: center;
+}
+
+#display_option_open_button:hover #open_menu {
+    content: url('../img/open_hover.png');
+}
+
+#open_menu {
+    width: 70%;
+    height: auto;
 }
 
 .container_chat_menu {
     width: calc(9.4/32 * 100%);
     height: 100%;
-    background-color: #df613d;
+}
+
+.intermediate_chat_menu {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #dc5938;
     justify-content: center;
     align-items: flex-start;
+}
+
+#container_display_close_option {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: calc(3/18 * 100%);
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#display_close_option {
+    width: calc(1.3/9.4 * 100%);
+    height: calc(0.8/3 * 100%);
+    border-radius: 50px 0 0 50px;
+    border-top: 3px solid #ffd8a0;
+    border-left: 3px solid #ffd8a0;
+    border-bottom: 3px solid #ffd8a0;
+}
+
+#display_option_close_button {
+    display: flex;
+    background: transparent;
+    border-color: transparent;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#display_option_close_button:hover #close_menu {
+    content: url('../img/close_hover.png');
+}
+
+#close_menu {
+    width: 70%;
+    height: auto;
 }
 
 .chat_menu {
@@ -54,6 +138,7 @@ div {
     height: calc(1/3 * 100%);
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
 .navigation {
@@ -67,7 +152,7 @@ div {
     color: #ffd8a0;
     background-color: transparent;
     border: #ffd8a0;
-    font-size: 26px;
+    font-size: 30px;
     border-bottom: 3px solid transparent;
 }
 
@@ -109,6 +194,95 @@ div {
 .container_notes {
     width: 100%;
     height: calc(9.9/17 * 100%);
+    justify-content: center;
+    align-items: center;
+}
+
+.intermediate_notes {
+    width: 100%;
+    height: 90%;
+}
+
+.intermediate_notes_left {
+    width: 5%;
+    height: 100%;
+}
+
+.intermediate_notes_mid {
+    width: 90%;
+    height: 100%;
+}
+
+.container_note {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none !important; /* Internet Explorer 10+ */
+    scrollbar-width: none !important; /* Firefox */
+}
+
+.container_note::-webkit-scrollbar {
+    display: none !important;  /* Safari and Chrome */
+}
+
+.intermediate_note {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5%;
+}
+
+.note {
+    max-width: 80%;
+    height: 100%;
+    background-color: #ffc593;
+    border-radius: 30px;
+}
+
+.note_p {
+    width: 100%;
+    height: 100%;
+    font-size: 26px;
+    color: black;
+    padding: 1ch 3ch;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.delete_note {
+    width: 20%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete_note_button {
+    width: 40%;
+    height: 80%;
+    background-color: transparent;
+    border: transparent;
+}
+
+.delete_note_img {
+    width: 100%;
+    height: auto;
+}
+
+.intermediate_notes_scrollbar {
+    width: 5%;
+    height: 100%;
+    justify-content: center;
+}
+
+.notes_scrollbar {
+    display: none;
+    width: 60%;
+    height: 100%;
+    background-color: #f7b986;
+    border-radius: 50px;
 }
 
 .container_new_chat {
@@ -150,83 +324,21 @@ div {
 }
 
 .container_chat_workfield {
-    position: relative;
-    flex-grow: 1;
+    width: calc(22.6/32 * 100%);
     height: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
 }
 
-.container_display_option {
-    width: 12.5%;
-    height: calc(3/18 * 100%);
-    justify-content: center;
-    align-items: center;
-}
-
-.display_option {
-    width: 100%;
-    height: calc(1/3 * 100%);
-}
-
-#option_close_button_img, #option_open_button_img {
-    width: 20%;
-    height: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-#option_close_button_img {
-    background-image: url("../img/arrow_close.png");
-}
-
-#option_open_button_img {
-    background-image: url("../img/arrow_open.png");
-}
-
-.option_button_span {
-    display: flex;
-    height: 100%;
-    font-size: 26px;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-}
-
-#display_option_close_button, #display_option_open_button {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 0 50px 50px 0;
-    background-color: #ffd8a0;
-    border: 3px solid #df613d;
-    border-left: transparent;
-    color: #ec8a5e;
-}
-
-#display_option_close_button:hover, #display_option_open_button:hover {
-    color: #df613d;
-}
-
-#display_option_close_button:hover #option_close_button_img {
-    background-image: url("../img/arrow_close_hover.png");
-}
-
-#display_option_open_button:hover #option_open_button_img {
-    background-image: url("../img/arrow_open_hover.png");
-}
-
-#display_option_open_button {
-    display: none;
+.intermediate_chat_workfield {
+    width: 90%;
+    height: calc(17/18 * 100%);
+    flex-direction: column;
 }
 
 .chat_workfield {
-    flex-grow: 1;
-    height: calc(17/18 * 100%);
+    width: 100%;
+    height: 100%;
     flex-direction: column;
 }
 
@@ -258,9 +370,9 @@ div {
 }
 
 .chat_workfield_user_email {
-    font-size: 26px;
+    font-size: 30px;
     margin-right: 1em;
-    color: #df613d;
+    color: #dc5938;
     font-weight: normal;
 }
 
@@ -273,19 +385,118 @@ div {
 .container_chat_work_dialogue {
     width: 100%;
     height: calc(11.9/17 * 100%);
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .chat_work_dialogue {
+    width: 90%;
+    height: 100%;
+    background-color: transparent;
+    flex-direction: column;
+    overflow-y: scroll;
+    -ms-overflow-style: none !important; /* Internet Explorer 10+ */
+    scrollbar-width: none !important; /* Firefox */
+}
+
+.chat_work_dialogue::-webkit-scrollbar {
+    display: none !important;  /* Safari and Chrome */
+}
+
+.container_chat_work_dialogue_user_message {
+    justify-content: flex-end;
+}
+
+.chat_work_dialogue_user_message {
+    background-color: #de623e;
+    border-radius: 30px;
+}
+
+.chat_work_dialogue_user_message_p {
+    width: 100%;
+    font-size: 26px;
+    color: #ffd8a0;
+    padding: 1ch 3ch;
+    overflow-wrap: break-word;
+}
+
+.container_chat_work_dialogue_bot_message {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.chat_work_dialogue_bot_message {
+    background-color: #ffc593;
+    border-radius: 30px;
+}
+
+.chat_work_dialogue_bot_message_p {
+    width: 100%;
+    font-size: 26px;
+    color: black;
+    padding: 1ch 3ch;
+    overflow-wrap: break-word;
+}
+
+.like-button {
+    position: relative;
+    width: 5%;
+    aspect-ratio: 1/1;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 50%;
+}
+
+.like-button .heart-icon {
     width: 100%;
     height: 100%;
+    background: url("../img/heart.png") left;
+    background-size: auto 100%;
+    cursor: pointer;
+    position: absolute;
+}
+
+.like-button .heart-icon.liked {
+    animation: like-anim 0.7s steps(28) forwards;
+}
+
+@keyframes like-anim {
+    to {
+        background-position: right;
+    }
+}
+
+.like-button .heart-bg {
+    background: #ffc593;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    transition: all 100ms ease;
+}
+
+.like-button .heart-bg:hover {
+    background-color: rgba(255, 197, 147, 0.75);
+}
+
+.container_chat_work_dialogue_scrollbar {
+    width: 4%;
+    height: 100%;
+    justify-content: center;
+    align-self: center;
+}
+
+.intermediate_chat_work_dialogue_scrollbar {
+    width: 25%;
+    height: 100%;
+}
+
+.chat_work_dialogue_scrollbar {
+    display: none;
+    width: 100%;
+    background-color: #f7b986;
     border-radius: 50px;
-    background-color: #ffd8a0;
-    background-image: url("../img/chat_background.png");
-    background-repeat: repeat;
-    background-size: 50% auto;
-    background-position: center;
-    background-attachment: fixed;
-    border: 3px solid #ec8a5e;
 }
 
 .container_chat_work_input {
@@ -317,11 +528,11 @@ div {
     resize: none;
     overflow: hidden;
     font-size: 30px;
-    padding: 7px 40px 15.8px 40px;
-    color: #df613d;
+    padding: 0.5ch 3ch 1ch 3ch;
+    color: #dc5938;
     outline: none;
     border: double 4px transparent;
-    background-image: linear-gradient(#ffd8a0, #ffd8a0), radial-gradient(circle at top left, #df613d, #f7b986);
+    background-image: linear-gradient(#ffd8a0, #ffd8a0), radial-gradient(circle at top left, #dc5938, #f7b986);
     background-origin: border-box;
     background-clip: padding-box, border-box;
 }
@@ -344,13 +555,4 @@ div {
 #chat_work_input_send_button_img {
     width: auto;
     height: 100%;
-
 }
-
-
-
-
-
-
-
-

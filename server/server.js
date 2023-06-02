@@ -25,7 +25,6 @@ const port = 3000;
 
 // Create a constant path
 const path = require('path');
-const {addUser} = require("./public/front/javascript/database");
 
 // Configure middleware for parsing incoming requests
 app.use(express.urlencoded({ extended: false }));
@@ -36,7 +35,7 @@ app.use(cookieParser());
 
 // Configure session
 app.use(session({
-    secret: 'my_secret_key_lmao', // Replace with your own secret key
+    secret: 'my_secret_key_lmao', // My secret key
     resave: false,
     saveUninitialized: false,
 }));
@@ -46,13 +45,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Convert password to hashed password
 function convertToHash(password) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const hash = crypto.createHash('sha256');
         hash.update(password);
         const hashedPassword = hash.digest('hex');
         resolve(hashedPassword);
     });
 }
+
+// API endpoint to retrieve session data
+app.get('/api/session', (req, res) => {
+    const sessionData = {
+        email: req.session.email
+    };
+    console.log(req.session.email);
+    res.json(sessionData);
+});
+
+// API endpoint to receive user messages
+app.post('/api/message', (req, res) => {
+    const { message } = req.body;
+    // Process the received message as needed
+    console.log(`Received message: ${message}`);
+    res.json({ success: true });
+});
 
 // Serve the main file as the default page
 app.get('/', function(req, res) {
@@ -113,12 +129,13 @@ app.post('/account/signup', (req, res) => {
             database.userExists(email, hashedPassword)
                 .then((success) => {
                     if (!success) {
-                        addUser(email, hashedPassword)
+                        database.addUser(email, hashedPassword)
                             .then(() => {
                                 console.log('User added successfully');
 
                                 // Store the user's email in the session
                                 req.session.email = email;
+                                console.log(email)
 
                                 // Set a cookie to remember the user's login status
                                 res.cookie('loggedIn', true);
@@ -143,9 +160,56 @@ app.post('/account/signup', (req, res) => {
             console.error('Error:', error);
             res.status(500).json({ success: false });
         });
-
-
 });
+
+app.post('/chat/addNote', async (req, res) => {
+    const { email, note_content } = req.body;
+
+    console.log(email);
+    console.log(note_content);
+
+    try {
+        const user_id = await database.getId(email);
+        console.log(user_id);
+
+        const noteAdded = await database.addNote(user_id, note_content);
+
+        if (noteAdded) {
+            console.log('Note added successfully');
+            res.json({ success: true });
+        } else {
+            res.json({ success: false });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+app.post('/chat/deleteNote', async (req, res) => {
+    const { email, note_content } = req.body;
+
+    console.log(email);
+    console.log(note_content);
+
+    try {
+        const note_id = await database.getNoteId(email, note_content);
+        console.log(note_id);
+
+        const noteDeleted = await database.deleteNote(note_id);
+
+        if (noteDeleted) {
+            console.log('Note deleted successfully');
+            res.json({ success: true });
+        } else {
+            res.json({ success: false });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
 
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
