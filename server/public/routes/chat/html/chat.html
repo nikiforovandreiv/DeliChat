@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- font import -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Candara">
+        <!-- css import -->
+        <link rel="stylesheet" type="text/css" href="/routes/chat/css/chat.css">
+        <!-- javascript import -->
+        <script defer src="/routes/chat/javascript/chat.js"></script>
+        <script defer src="/routes/common/javascript/navigationEventListener.js"></script>
+        <script defer src="/routes/common/javascript/dynamicTextFontSize.js"></script>
+        <!-- page icon import -->
+        <link rel="icon" href="/routes/common/img/webpage_icon_chat.png" sizes="16x16 32x32 96x96" type="image/png">
+        <!-- page title -->
+        <title>DeliChat: Chat</title>
+    </head>
+    <body id="body">
+        <!-- main page -->
+        <div class="container_chat" id="container_chat">
+            <!-- display open option button -->
+            <div class="container_display_option" id="container_display_open_option">
+                <div class="display_option" id="display_open_option">
+                    <button class="display_option_button" id="display_option_open_button">
+                        <img src="/routes/chat/img/open.png" alt="DeliChat" id="open_menu">
+                    </button>
+                </div>
+            </div>
+            <!--  menu side -->
+            <div class="container_chat_menu" id="container_chat_menu">
+                <div class="intermediate_chat_menu" id="intermediate_chat_menu">
+                    <!-- display close option button -->
+                    <div class="container_display_option" id="container_display_close_option">
+                        <div class="display_option" id="display_close_option">
+                            <button class="display_option_button" id="display_option_close_button">
+                                <img src="/routes/chat/img/close.png" alt="DeliChat" id="close_menu">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chat_menu" id="chat_menu">
+                        <!-- navigation -->
+                        <div class="container_navigation" id="container_navigation">
+                            <div class="intermediate_navigation" id="intermediate_navigation">
+                                <div class="navigation">
+                                    <button class="navigation_button" id="navigation_home_button" data-value="30">
+                                        Home
+                                    </button>
+                                    <span class="navigation_space" data-value="30">
+                                                |
+                                            </span>
+                                    <button class="navigation_button" id="navigation_about_button" data-value="30">
+                                        About
+                                    </button>
+                                    <span class="navigation_space" data-value="30">
+                                                |
+                                            </span>
+                                    <button class="navigation_button" id="navigation_account_button" data-value="30">
+                                        Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- logo -->
+                        <div class="container_logo">
+                            <div class="logo">
+                                <img src="/routes/chat/img/logo_chat.png" alt="DeliChat" id="logo_img">
+                            </div>
+                        </div>
+                        <!-- notes -->
+                        <div class="container_notes" id="container_notes">
+                            <div class="container_notes_name">
+                                <span class="notes_name" data-value="40">Saved Notes</span>
+                            </div>
+                            <div class="intermediate_notes" id="intermediate_notes">
+                                <div class="intermediate_notes_left" id="intermediate_notes_left">
+
+                                </div>
+                                <div class="intermediate_notes_mid" id="intermediate_notes_mid">
+                                    <div class="container_note" id="container_note">
+                                    </div>
+                                    <div class="container_add_note_reminder" id="container_add_note_reminder">
+                                        <span class="add_note_reminder" data-value="35">To add a note</span>
+                                        <span class="add_note_reminder" data-value="35">Press a like button</span>
+                                        <span class="add_note_reminder" data-value="35">Next to the bot message</span>
+                                    </div>
+                                </div>
+                                <div class="intermediate_notes_scrollbar" id="intermediate_notes_scrollbar">
+                                    <div class="notes_scrollbar" id="notes_scrollbar">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- new chat button -->
+                        <div class="container_new_chat">
+                            <div class="new_chat">
+                                <button class="new_chat_button" id="new_chat_button">
+                                    <img src="/routes/chat/img/plus.png" alt="" id="new_chat_button_img">
+                                    <span class="new_chat_button_text" data-value="40">New Chat</span>
+                                </button>
+                            </div>
+                            <div class="new_chat_option">
+                                <div class="new_chat_option_choice" id="new_chat_option_choice"></div>
+                                <div class="container_new_chat_option_delichat" id="container_new_chat_option_delichat">
+                                    <div class="new_chat_option_delichat" id="new_chat_option_delichat">
+                                        <img src="/routes/chat/img/delichat.png" alt="" id="new_chat_option_delichat_img">
+                                    </div>
+                                </div>
+                                <div class="new_chat_option_empty" id="new_chat_option_empty"></div>
+                                <div class="container_new_chat_option_chatgpt" id="container_new_chat_option_chatgpt">
+                                    <div class="new_chat_option_chatgpt" id="new_chat_option_chatgpt">
+                                        <img src="/routes/chat/img/chatgpt.png" alt="" id="new_chat_option_chatgpt_img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- chat workfield side -->
+            <div class="container_chat_workfield" id="container_chat_workfield">
+                <div class="intermediate_chat_workfield" id="intermediate_chat_workfield">
+                    <div class="chat_workfield" id="chat_workfield">
+                        <div class="container_chat_work_user_info" id="container_chat_work_user_info">
+                            <div class="intermediate_chat_work_user_info" id="intermediate_chat_work_user_info">
+                                <div class="container_chat_workfield_user_bot" id="container_chat_workfield_user_bot">
+                                    <div class="chat_workfield_user_bot" id="chat_workfield_user_bot" data-value="30">
+                                        Currently Using DeliChat Bot
+                                    </div>
+                                </div>
+                                <div class="chat_workfield_user_info" id="chat_workfield_user_info">
+                                    <div class="chat_workfield_user_email" id="chat_workfield_user_email" data-value="30">
+                                        user_template@gmail.com
+                                    </div>
+                                    <div class="chat_workfield_user_avatar" id="chat_workfield_user_avatar">
+                                        <img src="/routes/chat/img/avatar.png" alt="Avatar" id="chat_workfield_user_avatar_img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container_chat_work_dialogue" id="container_chat_work_dialogue">
+                            <div class="chat_work_dialogue" id="chat_work_dialogue">
+                                <div class="container_chat_work_dialogue_user_message">
+                                    <div class="chat_work_dialogue_user_message">
+                                        <p class="chat_work_dialogue_user_message_p" data-value="26">
+                                            Hello, this is some text. I am a user.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="container_chat_work_dialogue_bot_message">
+                                    <div class="chat_work_dialogue_bot_message">
+                                        <p class="chat_work_dialogue_bot_message_p" data-value="26">
+                                            Hello, this is some text. I am a bot.
+                                        </p>
+                                    </div>
+                                    <div class="like-button">
+                                        <div class="heart-bg">
+                                            <div class="heart-icon"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container_chat_work_dialogue_scrollbar" id="container_chat_work_dialogue_scrollbar">
+                                <div class="intermediate_chat_work_dialogue_scrollbar" id="intermediate_chat_work_dialogue_scrollbar">
+                                    <div class="chat_work_dialogue_scrollbar" id="chat_work_dialogue_scrollbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container_chat_work_input" id="container_chat_work_input">
+                            <div class="intermediate_chat_work_input" id="intermediate_chat_work_input">
+                                <div class="chat_work_input" id="chat_work_input">
+                                    <textarea id="chat_work_input_input" rows="1" placeholder="Write something to DeliChat..." maxlength="400" data-value="30"></textarea>
+                                </div>
+                                <div class="chat_work_input_send" id="chat_work_input_send">
+                                    <button class="chat_work_input_send_button" id="chat_work_input_send_button">
+                                        <img src="/routes/chat/img/chat_send.png" alt="Send" id="chat_work_input_send_button_img">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
