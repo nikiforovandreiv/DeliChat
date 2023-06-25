@@ -22,8 +22,8 @@ body {
 
 div {
     display: flex;
-    /* used for formatting the divs
-    border: 1px solid black; */
+    /* used for formatting the divs*/
+    border: 0px solid black;
 }
 
 button {

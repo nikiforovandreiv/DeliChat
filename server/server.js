@@ -16,6 +16,7 @@ const { hT, hF } = require("./public/routes/common/javascript/textFormatting");
 
 // Import the route modules
 const homeRoutes = require('./public/routes/home/javascript/homeRoutes');
+const aboutRoutes = require('./public/routes/about/javascript/aboutRoutes');
 const accountRoutes = require('./public/routes/account/javascript/accountRoutes');
 const chatRoutes = require('./public/routes/chat/javascript/chatRoutes');
 
@@ -68,6 +69,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Use the route modules to define the routes
 app.use('/', homeRoutes);
+app.use('/about', aboutRoutes);
 app.use('/account', accountRoutes);
 app.use('/chat', chatRoutes);
 

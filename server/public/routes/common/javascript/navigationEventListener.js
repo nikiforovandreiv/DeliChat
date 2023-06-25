@@ -10,7 +10,7 @@ for (let i = 0; i < navigationButtons.length; i++) {
         if (buttonContent === "Home") {
             window.location.href = "/";
         } else if (buttonContent === "About") {
-            window.location.href = "/";
+            window.location.href = "/about";
         } else if (buttonContent === "Account") {
             window.location.href = "/account";
         }

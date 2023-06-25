@@ -356,7 +356,7 @@ function startConversation(){
   }
 }
 
-//startConversation()
+startConversation()
 
 function finalChoice(foodArray){
   if (DEBUG === true){
@@ -383,7 +383,7 @@ function finalChoice(foodArray){
   }
   else{
     console.log("You were not able to choose any of recipes! Try one more time!");
-    chooseHardness();
+    startConversation();
   }
 }
 

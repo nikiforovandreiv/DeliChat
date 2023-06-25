@@ -166,6 +166,7 @@ function sendMessageToServerDeliChat(userMessage) {
         })
         .catch(error => {
             console.error('Error sending message to server:', error);
+
         });
 }
 
