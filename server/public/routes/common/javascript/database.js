@@ -1,25 +1,37 @@
 // Import "mysql2/promise" module
 const mysql = require('mysql2/promise');
 
+// Import "fs" module
+const fs = require('fs');
+
+// Import "path" module
+const path = require('path');
+
 // Import text formatting utilities
 const {hF, hT, hP, hID} = require("../../common/javascript/textFormatting");
 
 // Set filename
 const filename = 'database.js';
 
+// Read the SSL certificate file
+const ssl = {
+    ca: fs.readFileSync(path.join(__dirname, '../../../../../ssl_ca_file/DigiCertGlobalRootCA.crt.pem'))
+};
+
 // Create connection pool
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
+    host: 'delichat-database.mysql.database.azure.com',
+    user: 'delichatAdmin',
     password: 'Fri3nd1998!Fri3nd1998!',
     database: 'database',
-    connectionLimit: 10,
+    ssl: ssl,
+    connectionLimit: 10
 });
 
 // Function to establish database connection
-async function connect(callback) {
+async function connect() {
     try {
-        await pool.getConnection(callback);
+        await pool.getConnection();
         console.log(`${hF(filename)} Connected to database`);
     } catch (error) {
         console.error(`${hF(filename)} Error connecting to database:`, error);

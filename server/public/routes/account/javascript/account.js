@@ -23,28 +23,9 @@ const body = document.getElementById("body");
 // Get the topEmptySpace element
 const topEmptySpace = document.getElementById("top_empty_space");
 
-// Get the containerMain element
-const containerMain = document.getElementById("container_main");
-
-// Get the containerAccountLeft and containerAccountRight elements
-const containerAccountLeft = document.getElementById("container_account_left");
-const containerAccountRight = document.getElementById("container_account_right");
-
 // Get the accountLeft and accountRight elements
 const accountLeft = document.getElementById("account_left");
 const accountRight = document.getElementById("account_right");
-
-// Get the containerNavigationRow and containerNavigationColumn elements
-const containerNavigationRow = document.getElementById("container_navigation_row");
-const containerNavigationColumn = document.getElementById("container_navigation_column");
-
-// Get the containerWelcomeLogo and intermediateWelcomeLogo elements
-const containerWelcomeLogo = document.getElementById("container_welcome_logo");
-const intermediateWelcomeLogo = document.getElementById("intermediate_welcome_logo");
-
-// Get the containerAccountLogo and intermediateAccountLogo elements
-const containerAccountLogo = document.getElementsByClassName("container_account_logo");
-const intermediateAccountLogo = document.getElementsByClassName("intermediate_account_logo");
 
 // Get the containerAccount Pan and Pie elements for row and column
 const containerAccountPanRow = document.getElementById("container_account_pan_row");
@@ -56,9 +37,6 @@ const intermediateAccountPanColumn = document.getElementById("intermediate_accou
 const intermediateAccountPieColumn = document.getElementById("intermediate_account_pie_column");
 
 // Get the container sign elements
-const containerSign = document.getElementById("container_sign");
-const containerSignOption = document.getElementById("container_sign_option");
-const intermediateSignOption = document.getElementById("intermediate_sign_option");
 const signInOptionButton = document.getElementById("sign_in_option_button");
 const signUpOptionButton = document.getElementById("sign_up_option_button");
 const containerSignInput = document.getElementById("container_sign_input");
@@ -68,10 +46,6 @@ const signUpInputForm = document.getElementById("sign_up_input_form");
 const signInDisplay = document.getElementById("sign_in_display");
 const signUpDisplay = document.getElementById("sign_up_display");
 const signInputInput = document.getElementsByClassName("sign_input_input");
-const signInEmail = document.getElementById("sign_in_email");
-const signInPassword = document.getElementById("sign_in_password");
-const signUpEmail = document.getElementById("sign_up_email");
-const signUpPassword = document.getElementById("sign_up_password");
 const signUpRepeatPassword = document.getElementById("sign_up_repeat_password");
 const signInButton = document.getElementById("sign_in_button");
 const signUpButton = document.getElementById("sign_up_button");
@@ -109,70 +83,11 @@ function changeSize() {
     // column
     if (window.innerWidth <= window.innerHeight * 1.5) {
         is_row = false;
-
-        body.style.overflow = "auto"
-        body.style.overflowX = "hidden"
-
-        containerMain.style.flexDirection = "column";
-
-        containerAccountLeft.style.width = "100%";
-        containerAccountRight.style.width = "100%";
-
-        containerAccountLeft.style.height = "calc(6/18 * 100%)";
-
-        containerAccountLeft.style.alignItems = "center";
-        containerAccountRight.style.alignItems = "center";
-
-        accountLeft.style.marginRight = "0";
-        accountRight.style.marginLeft = "0";
-
-        containerNavigationColumn.style.display = "flex";
-        containerNavigationRow.style.display = "none";
-
-        containerWelcomeLogo.style.height = "calc(14/14 * 100%)";
-        containerWelcomeLogo.style.justifyContent = "center";
-        containerWelcomeLogo.style.alignItems = "center";
-        intermediateWelcomeLogo.style.marginLeft = "0";
-        intermediateWelcomeLogo.style.height = "calc(5/6 * 100%)";
-
-        containerSignOption.style.height = "calc(1.5/12 * 100%)";
-        containerSignOption.style.justifyContent = "flex-start";
-        intermediateSignOption.style.height = "calc(1/1.5 * 100%)";
     }
     // row
     else {
         is_row = true;
-
-        body.style.overflow = "hidden"
-
-        containerMain.style.flexDirection = "row";
-
-        containerAccountLeft.style.width = "50%";
-        containerAccountRight.style.width = "50%";
-
-        containerAccountLeft.style.height = "100%";
-
-        containerAccountLeft.style.alignItems = "flex-end";
-        containerAccountRight.style.alignItems = "flex-start";
-
-        accountLeft.style.marginRight = "calc(0.8/16 * 100%)";
-        accountRight.style.marginLeft = "calc(4/32 * 100%)";
-
-        containerNavigationColumn.style.display = "none";
-        containerNavigationRow.style.display = "flex";
-
-        containerWelcomeLogo.style.height = "calc(7/14 * 100%)";
-        containerWelcomeLogo.style.justifyContent = "flex-start";
-        containerWelcomeLogo.style.alignItems = "flex-start";
-        intermediateWelcomeLogo.style.marginLeft = "calc(0.8/11.2 * 100%)";
-        intermediateWelcomeLogo.style.height = "calc(5/7 * 100%)";
-
-        containerSignOption.style.height = "calc(3/12 * 100%)";
-        containerSignOption.style.justifyContent = "center";
-        intermediateSignOption.style.height = "calc(1/3 * 100%)";
-
         topEmptySpace.scrollIntoView({ behavior: "auto" });
-
     }
 }
 

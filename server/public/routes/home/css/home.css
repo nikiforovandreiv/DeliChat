@@ -17,13 +17,15 @@ body {
     background-size: 100% 100%;
     background-position: center;
     background-attachment: fixed;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 div {
     display: flex;
-    /* used for formatting the divs*/
+    /*
+    used for formatting the divs
     border: 0px solid black;
+    */
 }
 
 .top_empty_space {
@@ -35,7 +37,7 @@ div {
     flex-direction: row;
 }
 
-.container_welcome_left {
+.container_home_left {
     width: calc(16/32 * 100%);
     height: 100%;
     flex-direction: column;
@@ -43,26 +45,26 @@ div {
     align-items: flex-end;
 }
 
-.welcome_left {
+.home_left {
     width: calc(9.2/16 * 100%);
     height: calc(14/18 * 100%);
     flex-direction: column;
     margin-right: calc(2/16 * 100%);
 }
 
-.container_welcome_logo {
+.container_home_logo {
     height: calc(6/14 * 100%);
     justify-content: center;
     align-items: center;
 }
 
-.intermediate_welcome_logo {
+.intermediate_home_logo {
     height: calc(5/6 * 100%);
     justify-content: center;
     align-items: center;
 }
 
-.welcome_logo {
+.home_logo {
     height: 100%;
     justify-content: flex-start;
     align-items: center;
@@ -73,13 +75,13 @@ div {
     height: 100%;
 }
 
-.container_welcome_text {
+.container_home_text {
     height: calc(6/14 * 100%);
     justify-content: flex-end;
     align-items: center;
 }
 
-.intermediate_welcome_text {
+.intermediate_home_text {
     width: calc(8.6/9.2 * 100%);
     height: 100%;
     border-top: 2px solid #df613d;
@@ -87,7 +89,7 @@ div {
     align-items: flex-end;
 }
 
-.welcome_text {
+.home_text {
     height: calc(5/6 * 100%);
     flex-direction: column;
     justify-content: center;
@@ -95,18 +97,18 @@ div {
     margin-bottom: 2%;
 }
 
-.welcome_text_part {
+.home_text_part {
     height: 100%;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
 }
 
-.welcome_text_part p:nth-child(3n) {
+.home_text_part p:nth-child(3n) {
     margin-bottom: 1em;
 }
 
-.welcome_text_paragraph {
+.home_text_paragraph {
     font-size: 21px;
     font-weight: 500;
     text-align: start;
@@ -148,7 +150,7 @@ div {
     border: 4px solid #df613d;
 }
 
-.container_welcome_right {
+.container_home_right {
     width: 50%;
     height: 100%;
     flex-direction: column;
@@ -156,7 +158,7 @@ div {
     align-items: flex-start;
 }
 
-.welcome_right {
+.home_right {
     width: calc(11/16 * 100%);
     height: calc(14/18 * 100%);
     flex-direction: column;
@@ -165,6 +167,7 @@ div {
 }
 
 #container_navigation_row {
+    display: flex;
     width: 100%;
     height: calc(3/14 * 100%);
     justify-content: flex-end;
@@ -172,6 +175,7 @@ div {
 }
 
 #container_navigation_column {
+    display: none;
     width: 100%;
     height: calc(1/18 * 100%);
     justify-content: center;
@@ -235,19 +239,77 @@ div {
     margin-left: 3%;
 }
 
-.container_welcome_soup {
+.container_home_soup {
     width: 100%;
     height: calc(11/14 * 100%);
 }
 
-.welcome_soup {
+.home_soup {
     width: 100%;
     height: 100%;
     justify-content: flex-start;
     align-items: flex-start;
 }
 
-#welcome_soup_img {
+#home_soup_img {
     height: 100%;
     width: auto;
+}
+
+/* Media query for smaller screens */
+@media (max-aspect-ratio: 1.5/1) {
+    body {
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    #container_navigation_column {
+        display: flex;
+    }
+
+    #container_navigation_row {
+        display: none;
+    }
+
+    .container_main {
+        flex-direction: column;
+    }
+
+    .container_home_left {
+        width: 100%;
+        align-items: center;
+    }
+
+    .container_home_right {
+        width: 100%;
+        align-items: center;
+    }
+
+    .home_left {
+        margin-right: 0;
+    }
+
+    .home_logo {
+        justify-content: center;
+    }
+
+    .intermediate_home_text {
+        width: 100%;
+    }
+
+    .home_text_part {
+        align-items: center;
+    }
+
+    .home_text_paragraph {
+        text-align: center;
+    }
+
+    .container_delichat_button {
+        justify-content: center;
+    }
+
+    .intermediate_delichat_button {
+        margin-left: 0;
+    }
 }

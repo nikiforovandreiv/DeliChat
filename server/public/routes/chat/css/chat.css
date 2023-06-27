@@ -17,8 +17,10 @@ body {
 
 div {
     display: flex;
-    /* used for formatting the divs */
+    /*
+    used for formatting the divs
     border: 0px solid black;
+    */
 }
 
 .container_chat {
