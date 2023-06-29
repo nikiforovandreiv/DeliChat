@@ -36,6 +36,8 @@ function setSizeOfLeftAndRight() {
 function changeSize() {
     if (window.innerWidth > window.innerHeight * 1.5) {
         topEmptySpace.scrollIntoView({ behavior: "auto" });
+    } else if (window.innerWidth <= 800) {
+        console.log("1");
     }
 }
 

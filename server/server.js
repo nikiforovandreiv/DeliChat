@@ -45,7 +45,7 @@ database.retrieveNotesTableData()
 const app = express();
 
 // Create constant port
-const port = 3000;
+const port = 8080;
 
 // Set filename
 const filename = 'server.js';

@@ -576,6 +576,7 @@ div {
     color: black;
     padding: 1ch 3ch;
     overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .like-button {

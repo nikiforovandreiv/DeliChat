@@ -2,8 +2,10 @@
   "name": "package",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {},
+  "main": "./server/server.js",
+  "scripts": {
+    "start": "node ./server/server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pokamolod0/DeliChat.git"

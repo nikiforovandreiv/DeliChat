@@ -8,25 +8,14 @@ let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
 
 // constant variables to calculate the ratio of width and height
-const containerChatMenuHeightDefault = 18;
 const containerChatMenuWidthDefault = 9.4;
 
 // constant variables to calculate the ratio of width and height
 const chatMenuHeightDefault = 17;
 const chatMenuWidthDefault = 8;
 
-// constant variables to calculate the ratio of width and height
-const containerChatWorkfieldHeightDefault = 18;
-const containerChatWorkfieldWidthDefault = 22.6;
-
-// calculation of constant ratio of width and height
-const containerChatMenuProportion = containerChatMenuWidthDefault / containerChatMenuHeightDefault;
-
 // calculation of constant ratio of width and height
 const chatMenuProportion = chatMenuWidthDefault / chatMenuHeightDefault;
-
-// calculation of constant ratio of width and height
-const containerChatWorkfieldProportion = containerChatWorkfieldWidthDefault / containerChatWorkfieldHeightDefault;
 
 // Get the body element
 const body = document.getElementById("body");
@@ -36,18 +25,12 @@ const containerChat = document.getElementById("container_chat");
 
 // Get the containerChatMenu and containerChatChat elements
 const containerChatMenu = document.getElementById("container_chat_menu");
-const intermediateChatMenu = document.getElementById("intermediate_chat_menu");
 const containerChatWorkfield = document.getElementById("container_chat_workfield");
 
-const containerDisplayOption = document.getElementById("container_display_option");
 const displayOptionCloseButton = document.getElementById("display_option_close_button");
 const displayOptionOpenButton = document.getElementById("display_option_open_button");
 
 // Get the containerNotes elements
-const containerNotes = document.getElementById("container_notes");
-const intermediateNotes = document.getElementById("intermediate_notes");
-const intermediateNotesLeft = document.getElementById("intermediate_notes_left");
-const intermediateNotesMid = document.getElementById("intermediate_notes_mid");
 const containerNote = document.getElementById("container_note");
 const intermediateNotesScrollbar = document.getElementById("intermediate_notes_scrollbar");
 const notesScrollbar = document.getElementById("notes_scrollbar");
@@ -62,7 +45,6 @@ const newChatButton = document.getElementById("new_chat_button");
 
 // Get the chatMenu and chatChat elements
 const chatMenu = document.getElementById("chat_menu");
-const intermediateChatWorkfield = document.getElementById("intermediate_chat_workfield");
 const chatWorkfieldUserBot = document.getElementById("chat_workfield_user_bot");
 const chatWorkfieldUserEmail = document.getElementById("chat_workfield_user_email");
 
@@ -149,25 +131,31 @@ function sendMessageToServerChatGPT(userMessage, conversation) {
     });
 }
 
-// Function to send message
-function sendMessageToServerDeliChat(userMessage) {
-    fetch('/chat/messages/delichat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ userMessage: userMessage})
-    })
-        .then(response => response.json())
-        .then(data => {
-
-            console.log('Message sent to server');
-            // Perform any other necessary actions
-        })
-        .catch(error => {
-            console.error('Error sending message to server:', error);
-
+async function sendMessageToServerDeliChat(userMessage) {
+    try {
+        const response = await fetch('/chat/messages/delichat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userMessage }),
         });
+        const data = await response.json();
+
+        console.log('Message sent to server');
+        // Perform any other necessary actions
+        if (data.success) {
+            // The notes are retrieved successfully
+            console.log(data.completion_text);
+            return data.completion_text;
+        } else {
+            console.log('Failed to retrieve notes');
+            throw new Error('Failed to retrieve notes');
+        }
+    } catch (error) {
+        console.error('Error sending message to server:', error);
+        throw error;
+    }
 }
 
 function sendNoteToServer(email, note_content) {
@@ -356,8 +344,20 @@ function sendMessage() {
         sendUserMessage(message);
         if (chatBotEngineDelichat) {
             // Send message to the server
-            sendMessageToServerDeliChat(message);
-            sendBotMessage(message);
+            sendMessageToServerDeliChat(message)
+                .then(completion_text => {
+                    console.log('Received message:', completion_text);
+                    sendBotMessage(completion_text);
+                    // Perform further actions with the message
+                    changeSizeOfTextarea();
+                    changeSizeOfChatWorkDialogueMessage();
+                    multiplyTextSize();
+                    chatWorkDialogue.scrollTop = chatWorkDialogue.scrollHeight;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Handle the error
+                });
         } else {
             // Send message to the server
             sendMessageToServerChatGPT(message, conversation)
@@ -697,6 +697,22 @@ newChatButton.addEventListener('click', function () {
     chatBotEngineDelichat = delichatChoice
     chatWorkDialogue.innerHTML = "";
     changeSizeOfChatWorkDialogueScrollbar();
+    changeSizeOfTextarea();
+    changeSizeOfChatWorkDialogueMessage();
+    multiplyTextSize();
+    sendMessageToServerDeliChat("quit").then(completion_text => {
+        console.log('Received message:', completion_text);
+        sendBotMessage(completion_text);
+        // Perform further actions with the message
+        changeSizeOfTextarea();
+        changeSizeOfChatWorkDialogueMessage();
+        multiplyTextSize();
+        chatWorkDialogue.scrollTop = chatWorkDialogue.scrollHeight;
+    })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle the error
+        });
     if (delichatChoice) {
         chatWorkfieldUserBot.textContent = "Currently Using DeliChat Bot";
     } else {
@@ -747,3 +763,6 @@ window.addEventListener("resize", function() {
     changeSizeOfChatWorkDialogueMessage();
     setSizeOfLeftAndRight();
 });
+
+sendBotMessage("Hello my friend! I am DeliChat bot and I am here to help you to find perfect recipe! (To start dialog print [hi] or any variation of greeting)\nTo get acquainted with all the possible commands in our chatbot, write [help]\nIn order to exit the dialogue at any stage and start a new chat with the bot, write [quit]")
+

@@ -24,7 +24,7 @@ div {
     display: flex;
     /*
     used for formatting the divs
-    border: 0px solid black;
+    border: 1px solid black;
     */
 }
 
