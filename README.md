@@ -48,3 +48,9 @@ Our roles in the project were allocated according to our skills. Nevertheless, w
 3. Create a new account
 4. Log in with your newly created account
 5. Begin testing and using the chat application
+
+## Azure Account Credentials
+
+Email: andrei.nikiforov@stud.th-deg.de
+
+Password: Fri3nd1998!
