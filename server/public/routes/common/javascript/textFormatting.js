@@ -41,7 +41,7 @@ function hF(text, color = 'blue') {
 }
 
 module.exports = {
-    highlight,
+    // highlight,
     hT,
     hP,
     hID,

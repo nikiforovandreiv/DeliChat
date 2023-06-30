@@ -20,12 +20,12 @@ const ssl = {
 
 // Create connection pool
 const pool = mysql.createPool({
-    host: 'delichat2-database.mysql.database.azure.com',
+    host: 'delichat-database.mysql.database.azure.com',
     user: 'delichatAdmin',
     password: 'Fri3nd1998!Fri3nd1998!',
     database: 'database',
     ssl: ssl,
-    connectionLimit: 10
+    connectionLimit: 100
 });
 
 // Function to establish database connection

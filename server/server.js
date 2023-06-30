@@ -1,20 +1,26 @@
-// Import "express" module
+// Import 'express' module
 const express = require('express');
 
-// Import "cookieParser" and "express-session" modules
+// Import 'cookieParser' and 'express-session' modules
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-// Import database.js file
-const database = require(__dirname +  '/public/routes/common/javascript/database.js');
-
-// Create constant path
+// Import 'path' module
 const path = require('path');
 
-// Import text formatting utilities
-const { hT, hF } = require("./public/routes/common/javascript/textFormatting");
+// Import 'database.js' file
+const database = require(__dirname +  '/public/routes/common/javascript/database.js');
 
-// Import the route modules
+// Import 'textFormatting.js' file for text formatting utilities
+const { hT, hF } = require(__dirname + '/public/routes/common/javascript/textFormatting.js');
+
+/*
+ * Import the route modules
+ * 'homeRoutes.js'
+ * 'aboutRoutes.js'
+ * 'accountRoutes.js'
+ * 'chatRoutes.js'
+ */
 const homeRoutes = require('./public/routes/home/javascript/homeRoutes');
 const aboutRoutes = require('./public/routes/about/javascript/aboutRoutes');
 const accountRoutes = require('./public/routes/account/javascript/accountRoutes');

@@ -75,6 +75,7 @@ function setSizeOfLeftAndRight() {
     accountRight.style.height = `${accountRightHeight}px`;
 }
 
+// Function to handle resizing
 function changeSize() {
     // Update the width and height of the window
     windowWidth = window.innerWidth;

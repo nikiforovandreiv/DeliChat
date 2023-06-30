@@ -74,7 +74,7 @@
   {
     "response_type": "help",
     "user_input": ["our", "contacts"],
-    "bot_response": "Maxim Lapitan (back-end development): maxim.lapitan@stud.th-deg.de\nMaxim Zotov (back-end development): maxim.zotov@stud.th-deg.de\nAndrei Nikiforov (front-end development): andrei.nikiforov@stud.th-deg.de\nNichita Trofanishin (design development): nichita.trofanishin@stud.th-deg.de",
+    "bot_response": "Maxim Lapitan (back-end development): maxim.lapitan@stud.th-deg.de\nMaxim Zotov (back-end development): maxim.zotov@stud.th-deg.de\nAndrei Nikiforov (Full-Stack development): andrei.nikiforov@stud.th-deg.de\nNichita Trofanishin (design development): nichita.trofanishin@stud.th-deg.de",
     "required_words": ["contacts"]
   },
   {

@@ -336,6 +336,31 @@ function sendBotMessage(botMessage) {
     chatWorkDialogue.appendChild(containerNewBotMessage);
 }
 
+function sendBotNoteMessage(botMessage) {
+    // Create a new div element
+    let containerNewBotNoteMessage = document.createElement("div");
+    let newBotNoteMessage = document.createElement("div");
+
+    // Set attributes, classes for the new div
+    containerNewBotNoteMessage.classList.add("container_chat_work_dialogue_bot_message");
+    newBotNoteMessage.classList.add("chat_work_dialogue_bot_message");
+
+    // Create the inner p element
+    let newBotNoteMessageP = document.createElement("p");
+    newBotNoteMessageP.classList.add("chat_work_dialogue_bot_message_p");
+    newBotNoteMessageP.dataset.value = "26";
+    newBotNoteMessageP.textContent = botMessage;
+
+    // Append the p element to the div element
+    newBotNoteMessage.appendChild(newBotNoteMessageP);
+
+    // Append the like element to the div element
+    containerNewBotNoteMessage.appendChild(newBotNoteMessage);
+
+    // Append the new div as a child to the parent div
+    chatWorkDialogue.appendChild(containerNewBotNoteMessage);
+}
+
 function sendMessage() {
     let message = chatWorkInputInput.value.trim();
     // Additional code or actions can be performed here
@@ -415,6 +440,17 @@ function addNote(noteContent) {
     newIntermediateNote.appendChild(newDeleteNote);
 
     containerNote.appendChild(newIntermediateNote);
+
+    newNote.addEventListener('click', () => {
+        const noteContent = newDeleteNoteButton.closest(".intermediate_note").querySelector(".note_p").textContent;
+        console.log(noteContent);
+        sendBotNoteMessage(noteContent);
+        changeSizeOfTextarea();
+        changeSizeOfChatWorkDialogueMessage();
+        multiplyTextSize();
+        chatWorkDialogue.scrollTop = chatWorkDialogue.scrollHeight;
+        changeSizeOfChatWorkDialogueScrollbar();
+    });
 
     newDeleteNoteButton.addEventListener("click", () => {
         const noteContent = newDeleteNoteButton.closest(".intermediate_note").querySelector(".note_p").textContent;
@@ -700,21 +736,21 @@ newChatButton.addEventListener('click', function () {
     changeSizeOfTextarea();
     changeSizeOfChatWorkDialogueMessage();
     multiplyTextSize();
-    sendMessageToServerDeliChat("quit").then(completion_text => {
-        console.log('Received message:', completion_text);
-        sendBotMessage(completion_text);
-        // Perform further actions with the message
-        changeSizeOfTextarea();
-        changeSizeOfChatWorkDialogueMessage();
-        multiplyTextSize();
-        chatWorkDialogue.scrollTop = chatWorkDialogue.scrollHeight;
-    })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle the error
-        });
     if (delichatChoice) {
         chatWorkfieldUserBot.textContent = "Currently Using DeliChat Bot";
+        sendMessageToServerDeliChat("quit").then(completion_text => {
+            console.log('Received message:', completion_text);
+            sendBotMessage(completion_text);
+            // Perform further actions with the message
+            changeSizeOfTextarea();
+            changeSizeOfChatWorkDialogueMessage();
+            multiplyTextSize();
+            chatWorkDialogue.scrollTop = chatWorkDialogue.scrollHeight;
+        })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle the error
+            });
     } else {
         chatWorkfieldUserBot.textContent = "Currently Using ChatGPT Bot";
     }
@@ -765,4 +801,11 @@ window.addEventListener("resize", function() {
 });
 
 sendBotMessage("Hello my friend! I am DeliChat bot and I am here to help you to find perfect recipe! (To start dialog print [hi] or any variation of greeting)\nTo get acquainted with all the possible commands in our chatbot, write [help]\nIn order to exit the dialogue at any stage and start a new chat with the bot, write [quit]")
+changeSizeOfTextarea();
+changeSizeOfChatWorkDialogueMessage();
+multiplyTextSize();
+chatWorkDialogue.scrollTop = chatWorkDialogue.scrollHeight;
+chatWorkInputInput.value = "";
 
+changeSizeOfChatWorkDialogueScrollbar();
+changeSizeOfIntermediateNotesMidScrollbar();

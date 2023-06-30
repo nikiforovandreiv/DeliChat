@@ -17,11 +17,11 @@ const aboutRightProportion = aboutRightWidthDefault / aboutHeightDefault;
 // Function to set size of aboutLeft and aboutRight
 function setSizeOfLeftAndRight() {
 
-    const aboutLeftHeight = window.innerHeight * (15 / 18);
-    const aboutRightHeight = window.innerHeight * (15 / 18);
+    let aboutLeftHeight = window.innerHeight * (15 / 18);
+    let aboutRightHeight = window.innerHeight * (15 / 18);
 
-    const aboutLeftWidth = aboutLeftHeight * aboutLeftProportion;
-    const aboutRightWidth = aboutRightHeight * aboutRightProportion;
+    let aboutLeftWidth = aboutLeftHeight * aboutLeftProportion;
+    let aboutRightWidth = aboutRightHeight * aboutRightProportion;
 
     aboutLeft.style.width = `${aboutLeftWidth}px`;
     aboutLeft.style.height = `${aboutLeftHeight}px`;

@@ -16,14 +16,14 @@ const homeRightWidthDefault = 11;
 const homeLeftProportion = homeLeftWidthDefault / homeHeightDefault;
 const homeRightProportion = homeRightWidthDefault / homeHeightDefault;
 
-// Function to set size of welcomeLeft and welcomeRight
+// Function to set size of homeLeft and homeRight
 function setSizeOfLeftAndRight() {
 
-    const homeLeftHeight = window.innerHeight * (14 / 18);
-    const homeRightHeight = window.innerHeight * (14 / 18);
+    let homeLeftHeight = window.innerHeight * (14 / 18);
+    let homeRightHeight = window.innerHeight * (14 / 18);
 
-    const homeLeftWidth = homeLeftHeight * homeLeftProportion;
-    const homeRightWidth = homeRightHeight * homeRightProportion;
+    let homeLeftWidth = homeLeftHeight * homeLeftProportion;
+    let homeRightWidth = homeRightHeight * homeRightProportion;
 
     homeLeft.style.width = `${homeLeftWidth}px`;
     homeLeft.style.height = `${homeLeftHeight}px`;
@@ -36,8 +36,6 @@ function setSizeOfLeftAndRight() {
 function changeSize() {
     if (window.innerWidth > window.innerHeight * 1.5) {
         topEmptySpace.scrollIntoView({ behavior: "auto" });
-    } else if (window.innerWidth <= 800) {
-        console.log("1");
     }
 }
 

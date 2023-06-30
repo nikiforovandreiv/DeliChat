@@ -576,122 +576,202 @@ const handleDelichatRequest = (req, res) => {
     });
 };
 
-function get_response(input_string){
+/**
+ * Retrieves appropriate response based on input string by comparing it with set of predefined responses.
+ *
+ * @param {string} input_string - Input string from user.
+ * @returns {string} - Selected response based on input or random string if no match is found.
+ */
+function get_response(input_string) {
+    // Split input message into array of lowercase words or phrases
     const split_message = input_string.toLowerCase().split(/\s+|[,;?!.-]\s*/);
-    const score_list = []
 
-    for(let i = 0; i < response_data.length; i++){
+    // Array to store scores for each response
+    const score_list = [];
+
+    // Iterate through each response in response_data
+    for (let i = 0; i < response_data.length; i++) {
         let response_score = 0;
         let required_score = 0;
         let required_words = response_data[i]["required_words"];
 
-        if(required_words){
-            for(let j = 0; j < split_message.length; j++){
-                if(required_words.includes(split_message[j])){
+        // Calculate score for required words
+        if (required_words) {
+            for (let j = 0; j < split_message.length; j++) {
+                if (required_words.includes(split_message[j])) {
                     required_score += 1;
                 }
             }
         }
-        if(required_score === required_words.length){
-            for(let k = 0; k < split_message.length; k++){
-                if(response_data[i]["user_input"].includes(split_message[k])){
+        // If all required words are present, calculate score for user input
+        if (required_score === required_words.length) {
+            for (let k = 0; k < split_message.length; k++) {
+                if (response_data[i]["user_input"].includes(split_message[k])) {
                     response_score += 1;
                 }
             }
         }
+
+        // Add response score to score_list
         score_list.push(response_score);
     }
 
+    // Find highest response score and its index
     let best_response = Math.max(...score_list);
-    let response_index = score_list.indexOf(best_response)
+    let response_index = score_list.indexOf(best_response);
 
-
-    if(input_string === ""){
-        return "Please type something so we can chat :("
-    }
-    if(best_response !== 0){
-        return response_data[response_index]["bot_response"]
+    // If input string is empty, return prompt
+    if (input_string === "") {
+        return "Please type something so we can chat :(";
     }
 
-    return random_string()
+    // If matching response is found, return corresponding bot response
+    if (best_response !== 0) {
+        return response_data[response_index]["bot_response"];
+    }
+
+    // If no matching response is found, return random string
+    return random_string();
 }
 
+/**
+ * Generates random string message from predefined list of options.
+ *
+ * @returns {string} - Randomly selected string message from list.
+ */
 function random_string() {
+    // Predefined list of random string messages
     const random_list = [
         "Please try writing something more descriptive.",
-        "Oh! It appears you wrote something I don't understand yet",
+        "Oh! It appears you wrote something I don't understand yet.",
         "Do you mind trying to rephrase that?",
         "I'm terribly sorry, I didn't quite catch that.",
         "I can't answer that yet, please try asking something else."
     ];
 
+    // Determine number of items in list
     let list_count = random_list.length;
+
+    // Generate random index within range of list
     let random_item = Math.floor(Math.random() * list_count);
 
-    return random_list[random_item]
+    // Return randomly selected string message
+    return random_list[random_item];
 }
 
+/**
+ * Searches for titles in given JSON data that match search pattern and returns matched IDs.
+ *
+ * @param {Array} jsonData - JSON data to search within.
+ * @param {string|Array} searchPattern - Search pattern to match against the titles.
+ * @param {boolean} isArray - Optional. Specifies whether search pattern is array of words.
+ * @param {string} field - Optional. Field in JSON data to compare against (default is "Title").
+ * @param {boolean} checkAllElements - Optional. Specifies whether all search words should be found in title.
+ * @returns {Array} - Matched IDs based on search pattern.
+ */
 function searchTitle(jsonData, searchPattern, isArray = false, field = "Title", checkAllElements = false) {
     let searchWords;
     let wordIsFound = false;
+
+    // Convert search pattern to lowercase and split into words if not already an array
     if (isArray === false) {
         searchWords = searchPattern.toLowerCase().split(' ');
     } else {
         searchWords = searchPattern;
     }
+
+    // Array to store matched IDs
     const matchedIds = [];
+
+    // Iterate through each JSON data entry
     for (let i = 0; i < jsonData.length; i++) { // split json
         const title = jsonData[i][field].toLowerCase();
-        let titleWords = title.replace(/[^\w\s]|_/g, " ").split(' '); // title words => array
+
+        // Split title into words and remove duplicates
+        // title words => array
+        let titleWords = title.replace(/[^\w\s]|_/g, " ").split(' ');
         titleWords = [...new Set(titleWords)];
         titleWords = titleWords.map(element => element.toLowerCase());
-        let matchCount = 0; // Count of matched search words in the title
-        for (let j = 0; j < searchWords.length; j++) { // split search words
+
+        // Count of matched search words in the title
+        let matchCount = 0;
+
+        // Iterate through each search word
+        // split search words
+        for (let j = 0; j < searchWords.length; j++) {
             let searchWord = searchWords[j].replace(/[^\w\s]|_/g, " ").split(' ');
             searchWord = searchWord.map(element => element.toLowerCase());
+
+            // Check if search word is found in title words
             wordIsFound = checkElements(searchWord, titleWords, checkAllElements);
 
+            // Increment match count and store matched IDs
             if (wordIsFound) {
                 matchCount++;
                 if (checkAllElements === false && !matchedIds.includes(jsonData[i]["Id"])){
                     matchedIds.push(jsonData[i]["Id"]);
                 }
             }
+            // Store matched IDs if all search words are found and checkAllElements is true
             if (matchCount === searchWords.length && checkAllElements === true && !matchedIds.includes(jsonData[i]["Id"])){
                 matchedIds.push(jsonData[i]["Id"]);
             }
         }
     }
-
     return matchedIds;
 }
 
+/**
+ * Searches for ingredients in given JSON data based on search pattern.
+ *
+ * @param {Array} jsonData - JSON data to search through.
+ * @param {string|Array} searchPattern - Search pattern or array of search words.
+ * @param {boolean} isArray - (Optional) Indicates if search pattern is array. Defaults to false.
+ * @param {boolean} checkAllElements - (Optional) Specifies whether all search words must be found in each ingredient. Defaults to false.
+ * @returns {Array} - Array of matched IDs from JSON data.
+ */
 function searchIngredients(jsonData, searchPattern, isArray = false, checkAllElements = false) {
     let searchWords;
     let wordIsFound = false;
+
+    // Convert search pattern to lowercase and split into individual words if it's string
     if (isArray === false) {
         searchWords = searchPattern.toLowerCase().split(' ');
     } else {
         searchWords = searchPattern;
     }
+
     const matchedIds = [];
+
+    // Iterate over each element in JSON data
     for (let i = 0; i < jsonData.length; i++) {
         let newSearchWords = searchWords.slice();
         let matchCount = 0;
         const ingredients = jsonData[i]["Ingredients"];
+
+        // Iterate over each ingredient in current element
         for (let k = 0; k < ingredients.length; k++) {
             const ingredientWord = ingredients[k].toLowerCase();
+
+            // Iterate over each search word in search pattern
             for(let j = 0; j < newSearchWords.length; j++){
                 let newSearchWord = newSearchWords[j].replace(/[^\w\s]|_/g, " ").split(' ');
                 newSearchWord = newSearchWord.map(element => element.toLowerCase());
+
+                // Check if search word is found in current ingredient
                 wordIsFound = checkElements(removePattern(newSearchWord), removePattern(ingredientWord.split(' ')), checkAllElements);
+
                 if (wordIsFound === true) {
                     matchCount++;
-                    newSearchWords[j] = ""
+                    newSearchWords[j] = "";
+
+                    // If checkAllElements is false and ID is not already added, add it to matched IDs
                     if (checkAllElements === false && !matchedIds.includes(jsonData[i]["Id"])){
                         matchedIds.push(jsonData[i]["Id"]);
                     }
                 }
+
+                // If all search words are found in ingredient and checkAllElements is true, add ID to matched IDs
                 if (matchCount === searchWords.length && checkAllElements === true && !matchedIds.includes(jsonData[i]["Id"])){
                     matchedIds.push(jsonData[i]["Id"]);
                 }
@@ -701,25 +781,38 @@ function searchIngredients(jsonData, searchPattern, isArray = false, checkAllEle
     return matchedIds;
 }
 
-
+/*
+ * Searches for user behavior based on provided user input and returns filtered food array.
+ *
+ * @param {string} userInput - User input string.
+ * @returns {Array} - Filtered food array based on user behavior matching input.
+ */
 function searchUserBehaviour(userInput) {
+    // Array to store matched titles
     const matchedTitles = [];
+
+    // Split user input into array of lowercase words
     let userInputCut = userInput.toLowerCase().split(' ');
+
+    // Process "not" phrases in user input
     for (let i = 0; i < userInputCut.length; i++) {
         if (userInputCut[i] === 'not' && i < userInputCut.length - 1) {
             userInputCut[i] = 'not ' + userInputCut[i+1];
             userInputCut.splice(i+1, 1);
         }
     }
+    // Iterate through each user behavior entry
     for (let i = 0; i < userBehaviour.length; i++) {
         const keywords = userBehaviour[i]["Keywords"];
         let matchCount = 0;
 
+        // Compare each search word with keywords
         for (let j = 0; j < userInputCut.length; j++) {
             const searchWord = userInputCut[j];
 
             for (let k = 0; k < keywords.length; k++) {
                 const keyword = keywords[k];
+                // Increment match count and store matched titles
                 if (keyword.includes(searchWord) && searchWord.includes(keyword)) {
                     matchCount++;
                     if (!matchedTitles.includes(userBehaviour[i]["Title"])) {
@@ -730,12 +823,16 @@ function searchUserBehaviour(userInput) {
             }
         }
     }
+    // Log matched titles if DEBUG is true
     if (DEBUG === true) {
         console.log(matchedTitles)
     }
 
+    // Array to store ingredients with and without
     let ingredientsWith = [];
     let ingredientsWithout = [];
+
+    // Check if input includes "with" or "without" and extract ingredients
     if(userInputCut.includes("with")){
         for(let i = userInputCut.indexOf("with") + 1; i < userInputCut.length; i++){
             ingredientsWith.push(userInputCut[i]);
@@ -753,13 +850,18 @@ function searchUserBehaviour(userInput) {
         }
     }
 
+    // Array to store food IDs
     let foodArray = [];
+
+    // Populate foodArray with recipe IDs
     for(let k = 0; k < recipes.length; k++){
         foodArray.push(recipes[k]["Id"])
     }
 
+    // Apply filters based on matched titles
     for(let i = 0; i < matchedTitles.length; i++){
         if(matchedTitles[i] === "sweet titles"){
+            // Filter sweet dishes
             let sweetDishes = [];
             let foodArray2 = filterById(foodArray, recipes)
             for(let i = 0; i < foodArray2.length; i++) {
@@ -769,6 +871,7 @@ function searchUserBehaviour(userInput) {
             }
             foodArray = sweetDishes;
         }
+        // Handle other matched titles similarly...
         if(matchedTitles[i] === "not sweet titles"){
             let notSweetDishes = [];
             let foodArray2 = filterById(foodArray, recipes)
@@ -826,6 +929,7 @@ function searchUserBehaviour(userInput) {
         if(matchedTitles[i] === "Vegan-Title"){
             foodArray = searchTitle(filterById(foodArray, recipes), 'true', false, "Vegan");
         }
+        // Handle "with ingredients" filter
         if(matchedTitles[i] === "with ingredients") {
             if (ingredientsWith.includes("and")){
                 const elementToDelete = "and";
@@ -853,6 +957,7 @@ function searchUserBehaviour(userInput) {
             }
             foodArray = searchIngredients(filterById(foodArray, recipes), ingredientsWith, true, false)
         }
+        // Handle "without ingredients" filter
         if(matchedTitles[i] === "without ingredients"){
             let foodArray1 = [];
             if (ingredientsWithout.includes("and")){
@@ -878,6 +983,7 @@ function searchUserBehaviour(userInput) {
             foodArray1 = searchIngredients(filterById(foodArray, recipes), ingredientsWithout, true, false)
             foodArray = filterArray(foodArray, foodArray1);
         }
+        // Return prompt if matched title is empty
         if(matchedTitles[i] === "") {
             return get_response("")
         }
@@ -885,94 +991,125 @@ function searchUserBehaviour(userInput) {
     return foodArray;
 }
 
+/**
+ * Starts conversation based on user input and sets the current state accordingly.
+ *
+ * @param {string} user_input - User's input.
+ * @returns {string} - Response based on current state.
+ */
 function startConversation(user_input){
+    // Check if response matches prompt for selecting type of dish
     if(get_response(user_input) === "Select the type of dish \n\"Main[1]\", \n\"Salad[2]\", \n\"Dessert[3]\",\n\"Drink[4]\")"){
-        currentState = 'type'
-        return get_response(user_input)
+        currentState = 'type';
+        return get_response(user_input);
     }
+    // Check if response matches prompt for printing the name of recipe
     if(get_response(user_input) === "Print the name of the recipe:"){
-        currentState = 'specific'
+        currentState = 'specific';
         return get_response(user_input);
     }
+    // Check if response contains prompt for writing down description of dish
     if(get_response(user_input).includes("Write down the description of the dish you want:")){
-        currentState = 'description'
+        currentState = 'description';
         return get_response(user_input);
     }
-    // if(get_response(user_input) === "not agree") {
-    //     return get_response(user_input);
-    // }
-    currentState = 'start'
-    return get_response(user_input)
+    // If none of above conditions match, set current state to 'start'
+    currentState = 'start';
+    return get_response(user_input);
 }
 
 
-function chooseHardness(foodArray, userInput){
-    if (DEBUG === true){
-        console.log(foodArray)
+/**
+ * Chooses hardness level of food and performs corresponding actions based on user input.
+ *
+ * @param {Array} foodArray - Array of food items.
+ * @param {string} userInput - User's input indicating chosen hardness level.
+ * @returns {Array|string} - Filtered food array or a response based on user's input.
+ */
+function chooseHardness(foodArray, userInput) {
+    // DEBUG mode: Print food array if enabled
+    if (DEBUG === true) {
+        console.log(foodArray);
     }
+
     if (userInput === '1') {
         user_answers["hardness"] = "difficult";
-        return searchTitle(filterById(foodArray, recipes), "difficult", false, "Difficulty",  false)
+        return searchTitle(filterById(foodArray, recipes), "difficult", false, "Difficulty", false);
     } else if (userInput === '2') {
         user_answers["hardness"] = "average";
-        return searchTitle(filterById(foodArray, recipes), "average", false, "Difficulty",  false)
-    }
-    else if (userInput === '3') {
+        return searchTitle(filterById(foodArray, recipes), "average", false, "Difficulty", false);
+    } else if (userInput === '3') {
         user_answers["hardness"] = "simple";
-        return searchTitle(filterById(foodArray, recipes), "simple", false, "Difficulty", false)
-    }
-    else if (userInput === '4') {
+        return searchTitle(filterById(foodArray, recipes), "simple", false, "Difficulty", false);
+    } else if (userInput === '4') {
         user_answers["hardness"] = "any";
-        return foodArray
-    }
-    else if (userInput === '5') {
-        currentState = 'start'
+        return foodArray;
+    } else if (userInput === '5') {
+        currentState = 'start';
         startConversation("hi");
-    }
-    else {
+    } else {
         console.log('Invalid command. Please try again.');
-        currentState = 'hardness'
-        chooseHardness(foodArray, userInput)
+        currentState = 'hardness';
+        chooseHardness(foodArray, userInput);
     }
 }
 
+/**
+ * Chooses type of dish based on user input and returns corresponding array of recipes.
+ *
+ * @param {string} userInput - User's input indicating chosen type of dish.
+ * @returns {Array|string} - Array of recipes matching chosen type or response based on user's input.
+ */
+function chooseTypeOfDish(userInput) {
+    // Retrieve array of salad recipes
+    let SaladType = searchTitle(recipes, "salad", false, "Type_dish", true);
 
-function chooseTypeOfDish(userInput){
-    let SaladType = searchTitle(recipes, "salad", false,  "Type_dish",  true)
-    let DessertType = searchTitle(recipes, "dessert", false, "Type_dish",  true)
-    let DrinkType = searchTitle(recipes, "drink", false, "Type_dish",  true)
-    let notDrinkArray = searchTitle(filterById(DrinkType, recipes), userBehaviour[17]["Keywords"], true,"Title" , true)
-    DrinkType = filterArray(DrinkType, notDrinkArray)
-    let MainType = searchTitle(recipes, "main", false, "Type_dish")
+    // Retrieve array of dessert recipes
+    let DessertType = searchTitle(recipes, "dessert", false, "Type_dish", true);
+
+    // Retrieve array of drink recipes
+    let DrinkType = searchTitle(recipes, "drink", false, "Type_dish", true);
+
+    // Filter out recipes that are not considered drinks based on user behavior
+    let notDrinkArray = searchTitle(filterById(DrinkType, recipes), userBehaviour[17]["Keywords"], true, "Title", true);
+    DrinkType = filterArray(DrinkType, notDrinkArray);
+
+    // Retrieve array of main dish recipes
+    let MainType = searchTitle(recipes, "main", false, "Type_dish");
+
     if (userInput === '1') {
         user_answers["dishType"] = "main";
-        return MainType
+        return MainType;
     } else if (userInput === '2') {
         user_answers["dishType"] = "salad";
-        return SaladType
-    }
-    else if (userInput === '3') {
+        return SaladType;
+    } else if (userInput === '3') {
         user_answers["dishType"] = "dessert";
-        return DessertType
-    }
-    else if (userInput === '4'){
+        return DessertType;
+    } else if (userInput === '4') {
         user_answers["dishType"] = "drink";
-        return DrinkType
-    }
-    else if (userInput === '5'){
-        currentState = 'start'
-        return 'Hi User!'
-    }
-    else {
-        chooseTypeOfDish(userInput)
-        currentState = 'type'
-        return "try one more time"
+        return DrinkType;
+    } else if (userInput === '5') {
+        currentState = 'start';
+        return 'Hi User!';
+    } else {
+        // Recursive call to handle invalid input
+        chooseTypeOfDish(userInput);
+        currentState = 'type';
+        return "Please try again.";
     }
 }
-
-
+/**
+ * Checks if elements of array1 are present in array2.
+ *
+ * @param {Array} array1 - First array to compare.
+ * @param {Array} array2 - Second array to compare.
+ * @param {boolean} allElements - Specifies whether all elements of array1 should be present in array2.
+ * @returns {boolean} - True if elements of array1 are present in array2 according to specified condition, false otherwise.
+ */
 function checkElements(array1, array2, allElements) {
     if (allElements) {
+        // Check if all elements of array1 are present in array2
         for (let i = 0; i < array1.length; i++) {
             if (!array2.includes(array1[i])) {
                 return false;
@@ -980,6 +1117,7 @@ function checkElements(array1, array2, allElements) {
         }
         return true;
     } else {
+        // Check if any element of array1 is present in array2
         for (let i = 0; i < array1.length; i++) {
             if (array2.includes(array1[i])) {
                 return true;
@@ -989,12 +1127,25 @@ function checkElements(array1, array2, allElements) {
     }
 }
 
-function filterArray(array1, array2) { // 1ый массив это все, второй это часть, вовзращает 1ый в котором нет 2ого
+/**
+ * Filters out elements from array1 that are present in array2, and returns filtered array.
+ *
+ * @param {Array} array1 - Array to be filtered.
+ * @param {Array} array2 - Array containing elements to be excluded from filtered array.
+ * @returns {Array} - Filtered array containing elements from array1 that are not present in array2.
+ */
+function filterArray(array1, array2) {
     return array1.filter(function (element) {
         return !array2.includes(element);
     });
 }
 
+/**
+ * Removes common patterns from words in array and returns new array with modified words.
+ *
+ * @param {Array} arr - Array of words to be processed.
+ * @returns {Array} - New array with modified words after removing common patterns.
+ */
 function removePattern(arr) {
     let new_arr = [];
     for(let i = 0; i < arr.length; i++){
@@ -1002,20 +1153,34 @@ function removePattern(arr) {
         let lastLetter = arr[i][length - 1];
         let lastTwoLetters = arr[i].slice(length - 2);
 
+        // Check if word ends with 's' but not 'es'
         if (length >= 1 && lastLetter === "s" && !(lastTwoLetters === "es")) {
             new_arr.push(arr[i].slice(0, length - 1));
-        } else if (length >= 2 && lastTwoLetters === "es") {
+        }
+        // Check if word ends with 'es'
+        else if (length >= 2 && lastTwoLetters === "es") {
             new_arr.push(arr[i].slice(0, length - 2));
-        } else if (length >= 3 && lastTwoLetters === "ves") {
+        }
+        // Check if word ends with 'ves'
+        else if (length >= 3 && lastTwoLetters === "ves") {
             new_arr.push(arr[i].slice(0, length - 3));
-        } else {
+        }
+        // If no pattern is matched, add word as it is
+        else {
             new_arr.push(arr[i]);
         }
     }
     return new_arr;
 }
 
+/**
+ * Converts comma-separated string to array of lowercase elements.
+ *
+ * @param {string} text - Comma-separated string to be converted.
+ * @returns {Array} - Array containing lowercase elements from string.
+ */
 function stringToArray(text) {
+    // Split string into array using commas as separators
     let array = text.toLowerCase().split(',');
 
     // Remove leading and trailing whitespace from each element
@@ -1026,14 +1191,32 @@ function stringToArray(text) {
     return array;
 }
 
-
+/**
+ * Combines two arrays, removes duplicates, and returns new array with unique elements.
+ *
+ * @param {Array} array1 - First array to be combined.
+ * @param {Array} array2 - Second array to be combined.
+ * @returns {Array} - New array containing unique elements from both arrays.
+ */
 function combineAndRemoveDuplicates(array1, array2) {
+    // Combine two arrays using concat() method
     let combinedArray = array1.concat(array2);
+
+    // Create new Set from combinedArray to remove duplicates
+    // Convert Set back to array using spread operator [...]
     return [...new Set(combinedArray)];
 }
 
+/**
+ * Filters array of dictionaries by matching "Id" property with provided array of IDs.
+ *
+ * @param {Array} ids - Array of IDs to filter by.
+ * @param {Array} dictionaries - Array of dictionaries to be filtered.
+ * @returns {Array} - Filtered array of dictionaries matching provided IDs.
+ */
 function filterById(ids, dictionaries) {
     return dictionaries.filter(function (dict) {
+        // Check if "Id" property of dictionary is included in array of IDs
         return ids.includes(dict["Id"].toString());
     });
 }

@@ -14,7 +14,7 @@ function multiplyTextSize() {
     // Apply new font size to all elements that need it
     for (let i = 0; i < allObjects.length; i++) {
         if (allObjects[i].hasAttribute("data-value")) {
-            let currentFontSize = parseFloat(window.getComputedStyle(allObjects[i]).fontSize);
+            // let currentFontSize = parseFloat(window.getComputedStyle(allObjects[i]).fontSize);
             let newFontSize = allObjects[i].dataset.value * multiplicationFactor;
             allObjects[i].style.fontSize = newFontSize + "px";
         }
