@@ -14,7 +14,7 @@ const response_data = jsonfile.readFileSync(path.join(__dirname, './bot.json'));
 const recipes = jsonfile.readFileSync(path.join(__dirname, './recipes_formatted.json'));
 
 // Import user_behaviour.json file
-const userBehaviour = jsonfile.readFileSync(path.join(__dirname, './User_behaviour.json'));
+const userBehaviour = jsonfile.readFileSync(path.join(__dirname, './user_behaviour.json'));
 
 // Import database.js file
 const database = require(__dirname + '/../../common/javascript/database.js');
